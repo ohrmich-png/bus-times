@@ -1,0 +1,1194 @@
+{
+ "generated": "2026-10-04",
+ "count": 198,
+ "stops": [
+  {
+   "stop_code": "44085",
+   "stop_name": "תחנת מוניות יקנעם עילית יער אודם",
+   "stop_lat": 32.637832,
+   "stop_lon": 35.089889
+  },
+  {
+   "stop_code": "44086",
+   "stop_name": "תחנת מוניות יוקנעם עילית יער אודם",
+   "stop_lat": 32.637771,
+   "stop_lon": 35.089972
+  },
+  {
+   "stop_code": "50703",
+   "stop_name": "מרכז דליה",
+   "stop_lat": 32.590833,
+   "stop_lon": 35.07531
+  },
+  {
+   "stop_code": "50704",
+   "stop_name": "בי''ס אזורי מגידו/כביש 6954",
+   "stop_lat": 32.602921,
+   "stop_lon": 35.096765
+  },
+  {
+   "stop_code": "50959",
+   "stop_name": "מרכז רמת השופט",
+   "stop_lat": 32.610788,
+   "stop_lon": 35.095483
+  },
+  {
+   "stop_code": "51243",
+   "stop_name": "קריית החינוך",
+   "stop_lat": 32.637084,
+   "stop_lon": 35.080366
+  },
+  {
+   "stop_code": "51372",
+   "stop_name": "צומת רמות מנשה",
+   "stop_lat": 32.611852,
+   "stop_lon": 35.082892
+  },
+  {
+   "stop_code": "51486",
+   "stop_name": "צומת רמות מנשה",
+   "stop_lat": 32.612632,
+   "stop_lon": 35.083724
+  },
+  {
+   "stop_code": "51516",
+   "stop_name": "מסעף אליקים למזרח",
+   "stop_lat": 32.635056,
+   "stop_lon": 35.070059
+  },
+  {
+   "stop_code": "51518",
+   "stop_name": "מסעף עין העמק",
+   "stop_lat": 32.628729,
+   "stop_lon": 35.077934
+  },
+  {
+   "stop_code": "51519",
+   "stop_name": "מרכז יד לבנים / 6953",
+   "stop_lat": 32.600596,
+   "stop_lon": 35.097037
+  },
+  {
+   "stop_code": "51520",
+   "stop_name": "בית ספר מגידו / 6953",
+   "stop_lat": 32.600411,
+   "stop_lon": 35.097593
+  },
+  {
+   "stop_code": "51529",
+   "stop_name": "דרך העמק / צומת יוקנעם",
+   "stop_lat": 32.666594,
+   "stop_lon": 35.10928
+  },
+  {
+   "stop_code": "51530",
+   "stop_name": "דרך העמק/נחל קרת",
+   "stop_lat": 32.655573,
+   "stop_lon": 35.116294
+  },
+  {
+   "stop_code": "52255",
+   "stop_name": "התמר/התאנה",
+   "stop_lat": 32.658231,
+   "stop_lon": 35.106608
+  },
+  {
+   "stop_code": "52256",
+   "stop_name": "צומת יקנעם עילית",
+   "stop_lat": 32.661858,
+   "stop_lon": 35.105401
+  },
+  {
+   "stop_code": "52257",
+   "stop_name": "צומת יקנעם עילית",
+   "stop_lat": 32.66086,
+   "stop_lon": 35.104358
+  },
+  {
+   "stop_code": "52258",
+   "stop_name": "התמר / הפעמונית",
+   "stop_lat": 32.658906,
+   "stop_lon": 35.106831
+  },
+  {
+   "stop_code": "52259",
+   "stop_name": "הגיבורים/השיטה",
+   "stop_lat": 32.655414,
+   "stop_lon": 35.105809
+  },
+  {
+   "stop_code": "52261",
+   "stop_name": "מעלה הרקפות/הציפורנים",
+   "stop_lat": 32.653523,
+   "stop_lon": 35.112054
+  },
+  {
+   "stop_code": "52262",
+   "stop_name": "מעלה הרקפות/הציפורנים",
+   "stop_lat": 32.653512,
+   "stop_lon": 35.11218
+  },
+  {
+   "stop_code": "52263",
+   "stop_name": "דרך העמק/נחל קרת",
+   "stop_lat": 32.653633,
+   "stop_lon": 35.116997
+  },
+  {
+   "stop_code": "52264",
+   "stop_name": "דרך העמק/נתיב הנוטרים",
+   "stop_lat": 32.650181,
+   "stop_lon": 35.118078
+  },
+  {
+   "stop_code": "52265",
+   "stop_name": "מעלה אגרא/שדרות הראשונים",
+   "stop_lat": 32.65205,
+   "stop_lon": 35.115321
+  },
+  {
+   "stop_code": "52266",
+   "stop_name": "דרך העמק/נתיב הנוטרים",
+   "stop_lat": 32.650226,
+   "stop_lon": 35.118173
+  },
+  {
+   "stop_code": "52267",
+   "stop_name": "הגורן/הגיא",
+   "stop_lat": 32.647202,
+   "stop_lon": 35.117867
+  },
+  {
+   "stop_code": "52620",
+   "stop_name": "מסעף דליה",
+   "stop_lat": 32.592163,
+   "stop_lon": 35.081463
+  },
+  {
+   "stop_code": "52626",
+   "stop_name": "התמר / הגיבורים",
+   "stop_lat": 32.655845,
+   "stop_lon": 35.105574
+  },
+  {
+   "stop_code": "52628",
+   "stop_name": "המרגנית/האלה",
+   "stop_lat": 32.661364,
+   "stop_lon": 35.110008
+  },
+  {
+   "stop_code": "52629",
+   "stop_name": "החרצית/האלה",
+   "stop_lat": 32.660309,
+   "stop_lon": 35.108152
+  },
+  {
+   "stop_code": "52631",
+   "stop_name": "צאלים / השיקמה",
+   "stop_lat": 32.653165,
+   "stop_lon": 35.102526
+  },
+  {
+   "stop_code": "52632",
+   "stop_name": "כיכר הגיבורים/היסמין",
+   "stop_lat": 32.65897,
+   "stop_lon": 35.109429
+  },
+  {
+   "stop_code": "52633",
+   "stop_name": "היסמין/הכלניות",
+   "stop_lat": 32.656189,
+   "stop_lon": 35.112911
+  },
+  {
+   "stop_code": "52634",
+   "stop_name": "היסמין/הנרקיסים",
+   "stop_lat": 32.658642,
+   "stop_lon": 35.111737
+  },
+  {
+   "stop_code": "52635",
+   "stop_name": "בית ספר אורנים/לילך",
+   "stop_lat": 32.659547,
+   "stop_lon": 35.111104
+  },
+  {
+   "stop_code": "52656",
+   "stop_name": "צומת יקנעם/מושבה",
+   "stop_lat": 32.666662,
+   "stop_lon": 35.107946
+  },
+  {
+   "stop_code": "52674",
+   "stop_name": "מסעף דליה",
+   "stop_lat": 32.592952,
+   "stop_lon": 35.081918
+  },
+  {
+   "stop_code": "52726",
+   "stop_name": "דרך העמק/מעלה הבנים",
+   "stop_lat": 32.657856,
+   "stop_lon": 35.115354
+  },
+  {
+   "stop_code": "52727",
+   "stop_name": "דרך העמק/מעלה הבנים",
+   "stop_lat": 32.659399,
+   "stop_lon": 35.114692
+  },
+  {
+   "stop_code": "52869",
+   "stop_name": "מסעף דליה",
+   "stop_lat": 32.592524,
+   "stop_lon": 35.081118
+  },
+  {
+   "stop_code": "52955",
+   "stop_name": "'עין העמק ב",
+   "stop_lat": 32.630691,
+   "stop_lon": 35.08399
+  },
+  {
+   "stop_code": "52956",
+   "stop_name": "בית כנסת/עין העמק",
+   "stop_lat": 32.63071,
+   "stop_lon": 35.082712
+  },
+  {
+   "stop_code": "53016",
+   "stop_name": "המרגנית/הסיגלית",
+   "stop_lat": 32.661859,
+   "stop_lon": 35.108768
+  },
+  {
+   "stop_code": "53128",
+   "stop_name": "צאלים/דודאים",
+   "stop_lat": 32.652688,
+   "stop_lon": 35.102044
+  },
+  {
+   "stop_code": "53236",
+   "stop_name": "האורנים/הברושים",
+   "stop_lat": 32.653958,
+   "stop_lon": 35.100857
+  },
+  {
+   "stop_code": "53237",
+   "stop_name": "צאלים\\הערבה",
+   "stop_lat": 32.651108,
+   "stop_lon": 35.097385
+  },
+  {
+   "stop_code": "53283",
+   "stop_name": "הערבה\\הארזים",
+   "stop_lat": 32.649808,
+   "stop_lon": 35.094183
+  },
+  {
+   "stop_code": "53284",
+   "stop_name": "הערבה/רותם",
+   "stop_lat": 32.649248,
+   "stop_lon": 35.093205
+  },
+  {
+   "stop_code": "53285",
+   "stop_name": "הצאלים/הערבה",
+   "stop_lat": 32.646091,
+   "stop_lon": 35.090146
+  },
+  {
+   "stop_code": "53286",
+   "stop_name": "הצאלים/דקל",
+   "stop_lat": 32.647795,
+   "stop_lon": 35.091762
+  },
+  {
+   "stop_code": "53287",
+   "stop_name": "הצאלים/היקינטון",
+   "stop_lat": 32.649916,
+   "stop_lon": 35.09537
+  },
+  {
+   "stop_code": "53330",
+   "stop_name": "המרגנית/לילך",
+   "stop_lat": 32.660385,
+   "stop_lon": 35.110441
+  },
+  {
+   "stop_code": "53331",
+   "stop_name": "היסמין/הורדים",
+   "stop_lat": 32.657037,
+   "stop_lon": 35.111385
+  },
+  {
+   "stop_code": "53332",
+   "stop_name": "הצאלים/היקינטון",
+   "stop_lat": 32.649458,
+   "stop_lon": 35.094872
+  },
+  {
+   "stop_code": "53333",
+   "stop_name": "מרכז הטניס/האלונים",
+   "stop_lat": 32.647316,
+   "stop_lon": 35.09352
+  },
+  {
+   "stop_code": "53334",
+   "stop_name": "בית ספר ארזים/האלונים",
+   "stop_lat": 32.648497,
+   "stop_lon": 35.095899
+  },
+  {
+   "stop_code": "53335",
+   "stop_name": "האלונים/הדודאים",
+   "stop_lat": 32.650397,
+   "stop_lon": 35.098838
+  },
+  {
+   "stop_code": "53336",
+   "stop_name": "הדודאים/הצאלים",
+   "stop_lat": 32.651621,
+   "stop_lon": 35.10123
+  },
+  {
+   "stop_code": "53337",
+   "stop_name": "האורנים/הצאלים",
+   "stop_lat": 32.652519,
+   "stop_lon": 35.099176
+  },
+  {
+   "stop_code": "53338",
+   "stop_name": "הערבה/הארזים",
+   "stop_lat": 32.650885,
+   "stop_lon": 35.096103
+  },
+  {
+   "stop_code": "53430",
+   "stop_name": "הצאלים/האורנים",
+   "stop_lat": 32.651921,
+   "stop_lon": 35.098756
+  },
+  {
+   "stop_code": "53431",
+   "stop_name": "צאלים/רבין",
+   "stop_lat": 32.643504,
+   "stop_lon": 35.090692
+  },
+  {
+   "stop_code": "53432",
+   "stop_name": "הצאלים/שדרות יצחק רבין",
+   "stop_lat": 32.643927,
+   "stop_lon": 35.090468
+  },
+  {
+   "stop_code": "53434",
+   "stop_name": "שדרות יצחק רבין / ירדן",
+   "stop_lat": 32.641223,
+   "stop_lon": 35.088801
+  },
+  {
+   "stop_code": "53436",
+   "stop_name": "מרכז ביג/יער אודם",
+   "stop_lat": 32.642359,
+   "stop_lon": 35.091652
+  },
+  {
+   "stop_code": "53437",
+   "stop_name": "מרכז מסחרי/שדרות יצחק רבין",
+   "stop_lat": 32.643761,
+   "stop_lon": 35.092285
+  },
+  {
+   "stop_code": "53438",
+   "stop_name": "ירדן / חצבני",
+   "stop_lat": 32.639501,
+   "stop_lon": 35.084176
+  },
+  {
+   "stop_code": "53439",
+   "stop_name": "ירדן/בניאס",
+   "stop_lat": 32.640791,
+   "stop_lon": 35.083925
+  },
+  {
+   "stop_code": "53440",
+   "stop_name": "ירדן\\דליות",
+   "stop_lat": 32.642292,
+   "stop_lon": 35.086084
+  },
+  {
+   "stop_code": "53441",
+   "stop_name": "ירדן/שיאון",
+   "stop_lat": 32.643874,
+   "stop_lon": 35.086742
+  },
+  {
+   "stop_code": "53442",
+   "stop_name": "ירדן/שיאון",
+   "stop_lat": 32.644417,
+   "stop_lon": 35.087894
+  },
+  {
+   "stop_code": "53443",
+   "stop_name": "ירדן/המיצר",
+   "stop_lat": 32.643298,
+   "stop_lon": 35.089192
+  },
+  {
+   "stop_code": "53444",
+   "stop_name": "ספריה עירונית/קאנטרי",
+   "stop_lat": 32.645821,
+   "stop_lon": 35.09184
+  },
+  {
+   "stop_code": "53445",
+   "stop_name": "ספריה עירונית/קאנטרי",
+   "stop_lat": 32.644973,
+   "stop_lon": 35.092067
+  },
+  {
+   "stop_code": "53446",
+   "stop_name": "היכל התרבות/האלונים",
+   "stop_lat": 32.652652,
+   "stop_lon": 35.10329
+  },
+  {
+   "stop_code": "53447",
+   "stop_name": "האלונים\\הסחלבים",
+   "stop_lat": 32.651042,
+   "stop_lon": 35.101514
+  },
+  {
+   "stop_code": "53448",
+   "stop_name": "הצאלים/האורנים",
+   "stop_lat": 32.652049,
+   "stop_lon": 35.099522
+  },
+  {
+   "stop_code": "53449",
+   "stop_name": "האלונים/הדודאים",
+   "stop_lat": 32.649861,
+   "stop_lon": 35.09811
+  },
+  {
+   "stop_code": "53450",
+   "stop_name": "בית ספר ארזים/האלונים",
+   "stop_lat": 32.649133,
+   "stop_lon": 35.096532
+  },
+  {
+   "stop_code": "53451",
+   "stop_name": "היכל התרבות/האלונים",
+   "stop_lat": 32.651782,
+   "stop_lon": 35.102604
+  },
+  {
+   "stop_code": "53455",
+   "stop_name": "הצאלים/היקינטון",
+   "stop_lat": 32.649502,
+   "stop_lon": 35.094557
+  },
+  {
+   "stop_code": "53456",
+   "stop_name": "הצאלים/דקל",
+   "stop_lat": 32.647845,
+   "stop_lon": 35.091645
+  },
+  {
+   "stop_code": "53500",
+   "stop_name": "מרכז מסחרי/יער אודם",
+   "stop_lat": 32.637459,
+   "stop_lon": 35.089466
+  },
+  {
+   "stop_code": "53501",
+   "stop_name": "יער אודם/מירון",
+   "stop_lat": 32.637175,
+   "stop_lon": 35.087105
+  },
+  {
+   "stop_code": "53502",
+   "stop_name": "שד.יצחק רבין / יער אודם",
+   "stop_lat": 32.637557,
+   "stop_lon": 35.084913
+  },
+  {
+   "stop_code": "53542",
+   "stop_name": "חרמון/יער אודם",
+   "stop_lat": 32.637879,
+   "stop_lon": 35.09137
+  },
+  {
+   "stop_code": "53543",
+   "stop_name": "חרמון/נחל שורק",
+   "stop_lat": 32.63636,
+   "stop_lon": 35.091879
+  },
+  {
+   "stop_code": "53544",
+   "stop_name": "חרמון/נחל שורק",
+   "stop_lat": 32.63569,
+   "stop_lon": 35.091692
+  },
+  {
+   "stop_code": "53545",
+   "stop_name": "גן ילדים יקינטון/חרמון",
+   "stop_lat": 32.636463,
+   "stop_lon": 35.089432
+  },
+  {
+   "stop_code": "53613",
+   "stop_name": "עמק השלום/התבור",
+   "stop_lat": 32.644689,
+   "stop_lon": 35.098952
+  },
+  {
+   "stop_code": "53646",
+   "stop_name": "הערבה / אשל",
+   "stop_lat": 32.648156,
+   "stop_lon": 35.089339
+  },
+  {
+   "stop_code": "53716",
+   "stop_name": "האורנים/הרקפת",
+   "stop_lat": 32.652987,
+   "stop_lon": 35.101395
+  },
+  {
+   "stop_code": "54199",
+   "stop_name": "מרכז עין השופט",
+   "stop_lat": 32.597117,
+   "stop_lon": 35.100361
+  },
+  {
+   "stop_code": "54223",
+   "stop_name": "מרכז העיר/תיכון אורט",
+   "stop_lat": 32.654613,
+   "stop_lon": 35.104772
+  },
+  {
+   "stop_code": "54739",
+   "stop_name": "הגיא",
+   "stop_lat": 32.636751,
+   "stop_lon": 35.075615
+  },
+  {
+   "stop_code": "54743",
+   "stop_name": "הגיא",
+   "stop_lat": 32.637047,
+   "stop_lon": 35.076361
+  },
+  {
+   "stop_code": "54867",
+   "stop_name": "הגיא/המעיין",
+   "stop_lat": 32.637256,
+   "stop_lon": 35.077442
+  },
+  {
+   "stop_code": "54917",
+   "stop_name": "הגיא/החורש",
+   "stop_lat": 32.640766,
+   "stop_lon": 35.08198
+  },
+  {
+   "stop_code": "54918",
+   "stop_name": "הגיא/החורש",
+   "stop_lat": 32.64098,
+   "stop_lon": 35.081327
+  },
+  {
+   "stop_code": "54919",
+   "stop_name": "הגיא/המפל",
+   "stop_lat": 32.639505,
+   "stop_lon": 35.079756
+  },
+  {
+   "stop_code": "54920",
+   "stop_name": "הגיא/הפטל",
+   "stop_lat": 32.638852,
+   "stop_lon": 35.081443
+  },
+  {
+   "stop_code": "54921",
+   "stop_name": "הגיא/האקליפטוס",
+   "stop_lat": 32.638168,
+   "stop_lon": 35.080791
+  },
+  {
+   "stop_code": "54922",
+   "stop_name": "המפל",
+   "stop_lat": 32.637581,
+   "stop_lon": 35.079276
+  },
+  {
+   "stop_code": "54923",
+   "stop_name": "המפל",
+   "stop_lat": 32.636995,
+   "stop_lon": 35.079032
+  },
+  {
+   "stop_code": "54924",
+   "stop_name": "הגיא/שדרות יצחק רבין",
+   "stop_lat": 32.63476,
+   "stop_lon": 35.078139
+  },
+  {
+   "stop_code": "54925",
+   "stop_name": "הגיא/שדרות יצחק רבין",
+   "stop_lat": 32.634804,
+   "stop_lon": 35.077938
+  },
+  {
+   "stop_code": "54926",
+   "stop_name": "קרית חינוך/הגיא",
+   "stop_lat": 32.636058,
+   "stop_lon": 35.081117
+  },
+  {
+   "stop_code": "54958",
+   "stop_name": "הכרמל/העתיד",
+   "stop_lat": 32.657294,
+   "stop_lon": 35.097981
+  },
+  {
+   "stop_code": "55232",
+   "stop_name": "צרכניה",
+   "stop_lat": 32.59584,
+   "stop_lon": 35.159109
+  },
+  {
+   "stop_code": "55381",
+   "stop_name": "מסעף משמר העמק",
+   "stop_lat": 32.613723,
+   "stop_lon": 35.143548
+  },
+  {
+   "stop_code": "55382",
+   "stop_name": "מסעף משמר העמק",
+   "stop_lat": 32.612902,
+   "stop_lon": 35.144254
+  },
+  {
+   "stop_code": "55402",
+   "stop_name": "צומת הזורע",
+   "stop_lat": 32.647227,
+   "stop_lon": 35.125193
+  },
+  {
+   "stop_code": "55403",
+   "stop_name": "צומת הזורע",
+   "stop_lat": 32.646138,
+   "stop_lon": 35.125717
+  },
+  {
+   "stop_code": "55455",
+   "stop_name": "צומת פארק מנשה",
+   "stop_lat": 32.63329,
+   "stop_lon": 35.129217
+  },
+  {
+   "stop_code": "55456",
+   "stop_name": "מסעף רמת מנשה",
+   "stop_lat": 32.631827,
+   "stop_lon": 35.12948
+  },
+  {
+   "stop_code": "55521",
+   "stop_name": "צומת יקנעם המושבה",
+   "stop_lat": 32.667848,
+   "stop_lon": 35.108626
+  },
+  {
+   "stop_code": "56165",
+   "stop_name": "התבור/יודפת",
+   "stop_lat": 32.645928,
+   "stop_lon": 35.097528
+  },
+  {
+   "stop_code": "56166",
+   "stop_name": "עמק השלום/הגלבוע",
+   "stop_lat": 32.644277,
+   "stop_lon": 35.098337
+  },
+  {
+   "stop_code": "56167",
+   "stop_name": "עמק השלום/הצופים",
+   "stop_lat": 32.643062,
+   "stop_lon": 35.096043
+  },
+  {
+   "stop_code": "56168",
+   "stop_name": "התבור/עמק השלום",
+   "stop_lat": 32.643871,
+   "stop_lon": 35.095119
+  },
+  {
+   "stop_code": "56169",
+   "stop_name": "ירדן/שיאון",
+   "stop_lat": 32.644959,
+   "stop_lon": 35.088006
+  },
+  {
+   "stop_code": "56170",
+   "stop_name": "ירדן/המיצר",
+   "stop_lat": 32.643403,
+   "stop_lon": 35.088929
+  },
+  {
+   "stop_code": "56171",
+   "stop_name": "ירדן/דליות",
+   "stop_lat": 32.642617,
+   "stop_lon": 35.086338
+  },
+  {
+   "stop_code": "56172",
+   "stop_name": "ירדן/שדרות יצחק רבין",
+   "stop_lat": 32.642102,
+   "stop_lon": 35.089658
+  },
+  {
+   "stop_code": "56173",
+   "stop_name": "בי''ס תדהר/יער אודם",
+   "stop_lat": 32.638086,
+   "stop_lon": 35.09127
+  },
+  {
+   "stop_code": "56174",
+   "stop_name": "מרכז מסחרי/יער אודם",
+   "stop_lat": 32.637366,
+   "stop_lon": 35.089509
+  },
+  {
+   "stop_code": "56175",
+   "stop_name": "יער אודם/אביטל",
+   "stop_lat": 32.63711,
+   "stop_lon": 35.085955
+  },
+  {
+   "stop_code": "56176",
+   "stop_name": "ירדן/ארבל",
+   "stop_lat": 32.639382,
+   "stop_lon": 35.084028
+  },
+  {
+   "stop_code": "56177",
+   "stop_name": "הגיא/הפטל",
+   "stop_lat": 32.638427,
+   "stop_lon": 35.0807
+  },
+  {
+   "stop_code": "56178",
+   "stop_name": "המפל/הגיא",
+   "stop_lat": 32.638959,
+   "stop_lon": 35.079085
+  },
+  {
+   "stop_code": "56186",
+   "stop_name": "בית ספר  ארזים",
+   "stop_lat": 32.647647,
+   "stop_lon": 35.095266
+  },
+  {
+   "stop_code": "56251",
+   "stop_name": "צומת מבוא כרמל",
+   "stop_lat": 32.621345,
+   "stop_lon": 35.079917
+  },
+  {
+   "stop_code": "56252",
+   "stop_name": "צומת מבוא כרמל",
+   "stop_lat": 32.619996,
+   "stop_lon": 35.079978
+  },
+  {
+   "stop_code": "56256",
+   "stop_name": "מסוף קניון ג'י/הורדה",
+   "stop_lat": 32.658918,
+   "stop_lon": 35.104311
+  },
+  {
+   "stop_code": "56256",
+   "stop_name": "מסוף קניון ג'י/הורדה",
+   "stop_lat": 32.658918,
+   "stop_lon": 35.104311
+  },
+  {
+   "stop_code": "56256",
+   "stop_name": "מסוף קניון ג'י/הורדה",
+   "stop_lat": 32.658918,
+   "stop_lon": 35.104311
+  },
+  {
+   "stop_code": "56342",
+   "stop_name": "צומת אוסם לצפון",
+   "stop_lat": 32.657563,
+   "stop_lon": 35.10176
+  },
+  {
+   "stop_code": "56343",
+   "stop_name": "צומת אוסם לדרום",
+   "stop_lat": 32.656843,
+   "stop_lon": 35.100561
+  },
+  {
+   "stop_code": "56600",
+   "stop_name": "עמק השלום/נחל הבשור",
+   "stop_lat": 32.646046,
+   "stop_lon": 35.100776
+  },
+  {
+   "stop_code": "56601",
+   "stop_name": "עמק השלום/נחל הבשור",
+   "stop_lat": 32.645662,
+   "stop_lon": 35.10068
+  },
+  {
+   "stop_code": "56993",
+   "stop_name": "דרך הארגמן/דרך היער",
+   "stop_lat": 32.636184,
+   "stop_lon": 35.073347
+  },
+  {
+   "stop_code": "56994",
+   "stop_name": "דרך הארגמן/דרך היער",
+   "stop_lat": 32.636391,
+   "stop_lon": 35.072669
+  },
+  {
+   "stop_code": "56995",
+   "stop_name": "שדרות נשיאי ישראל",
+   "stop_lat": 32.635379,
+   "stop_lon": 35.073091
+  },
+  {
+   "stop_code": "56996",
+   "stop_name": "שדרות נשיאי ישראל",
+   "stop_lat": 32.635373,
+   "stop_lon": 35.073997
+  },
+  {
+   "stop_code": "57507",
+   "stop_name": "האלון/הרימון",
+   "stop_lat": 32.61964,
+   "stop_lon": 35.073852
+  },
+  {
+   "stop_code": "57535",
+   "stop_name": "הרימון/השקד",
+   "stop_lat": 32.613024,
+   "stop_lon": 35.071604
+  },
+  {
+   "stop_code": "57565",
+   "stop_name": "הרימון/התאנה",
+   "stop_lat": 32.614298,
+   "stop_lon": 35.07408
+  },
+  {
+   "stop_code": "57587",
+   "stop_name": "התאנה/הרימון",
+   "stop_lat": 32.615584,
+   "stop_lon": 35.072064
+  },
+  {
+   "stop_code": "57700",
+   "stop_name": "הרימון",
+   "stop_lat": 32.614751,
+   "stop_lon": 35.074786
+  },
+  {
+   "stop_code": "57804",
+   "stop_name": "הרימון/הזית",
+   "stop_lat": 32.617169,
+   "stop_lon": 35.074979
+  },
+  {
+   "stop_code": "57829",
+   "stop_name": "הרימון/הזית",
+   "stop_lat": 32.616524,
+   "stop_lon": 35.074759
+  },
+  {
+   "stop_code": "57842",
+   "stop_name": "הרימון/האלון",
+   "stop_lat": 32.619283,
+   "stop_lon": 35.074456
+  },
+  {
+   "stop_code": "57862",
+   "stop_name": "האלון/הרימון",
+   "stop_lat": 32.619844,
+   "stop_lon": 35.074935
+  },
+  {
+   "stop_code": "57905",
+   "stop_name": "התבור/הבשן",
+   "stop_lat": 32.64608,
+   "stop_lon": 35.098138
+  },
+  {
+   "stop_code": "57906",
+   "stop_name": "התבור/סיני",
+   "stop_lat": 32.644977,
+   "stop_lon": 35.09554
+  },
+  {
+   "stop_code": "57907",
+   "stop_name": "עמק השלום/הגלעד",
+   "stop_lat": 32.643135,
+   "stop_lon": 35.09687
+  },
+  {
+   "stop_code": "59570",
+   "stop_name": "רמת השופט",
+   "stop_lat": 32.608813,
+   "stop_lon": 35.090315
+  },
+  {
+   "stop_code": "59571",
+   "stop_name": "רמת השופט",
+   "stop_lat": 32.609341,
+   "stop_lon": 35.089642
+  },
+  {
+   "stop_code": "59572",
+   "stop_name": "צומת רמת השופט",
+   "stop_lat": 32.611873,
+   "stop_lon": 35.084602
+  },
+  {
+   "stop_code": "59574",
+   "stop_name": "מסעף עין העמק",
+   "stop_lat": 32.627901,
+   "stop_lon": 35.078186
+  },
+  {
+   "stop_code": "59575",
+   "stop_name": "'עין העמק א",
+   "stop_lat": 32.629038,
+   "stop_lon": 35.079647
+  },
+  {
+   "stop_code": "59583",
+   "stop_name": "צומת יקנעם מערב",
+   "stop_lat": 32.633896,
+   "stop_lon": 35.074295
+  },
+  {
+   "stop_code": "59584",
+   "stop_name": "צומת יקנעם מערב",
+   "stop_lat": 32.633729,
+   "stop_lon": 35.075433
+  },
+  {
+   "stop_code": "59585",
+   "stop_name": "שד.רבין/הירדן",
+   "stop_lat": 32.638376,
+   "stop_lon": 35.084961
+  },
+  {
+   "stop_code": "59587",
+   "stop_name": "בי''ס הדסים",
+   "stop_lat": 32.6408,
+   "stop_lon": 35.089414
+  },
+  {
+   "stop_code": "59588",
+   "stop_name": "שד.רבין/הירדן",
+   "stop_lat": 32.641767,
+   "stop_lon": 35.09006
+  },
+  {
+   "stop_code": "59589",
+   "stop_name": "בי''ס תדהר/יער אודם",
+   "stop_lat": 32.638232,
+   "stop_lon": 35.09141
+  },
+  {
+   "stop_code": "59591",
+   "stop_name": "הצאלים/הערבה",
+   "stop_lat": 32.645148,
+   "stop_lon": 35.089883
+  },
+  {
+   "stop_code": "59592",
+   "stop_name": "הערבה/נופר",
+   "stop_lat": 32.646357,
+   "stop_lon": 35.089483
+  },
+  {
+   "stop_code": "59594",
+   "stop_name": "הערבה/רותם",
+   "stop_lat": 32.648772,
+   "stop_lon": 35.091827
+  },
+  {
+   "stop_code": "59595",
+   "stop_name": "היקינטון/הדס",
+   "stop_lat": 32.64837,
+   "stop_lon": 35.093987
+  },
+  {
+   "stop_code": "59596",
+   "stop_name": "הדודאים/ההרדופים",
+   "stop_lat": 32.650838,
+   "stop_lon": 35.098953
+  },
+  {
+   "stop_code": "59597",
+   "stop_name": "מרכז העיר/תיכון אורט",
+   "stop_lat": 32.65445,
+   "stop_lon": 35.104706
+  },
+  {
+   "stop_code": "59602",
+   "stop_name": "כיכר תבור",
+   "stop_lat": 32.662631,
+   "stop_lon": 35.104223
+  },
+  {
+   "stop_code": "59603",
+   "stop_name": "מפעל סולתם",
+   "stop_lat": 32.664134,
+   "stop_lon": 35.105153
+  },
+  {
+   "stop_code": "59606",
+   "stop_name": "הגיא / הגורן",
+   "stop_lat": 32.647387,
+   "stop_lon": 35.117783
+  },
+  {
+   "stop_code": "59607",
+   "stop_name": "דרך העמק/אגרא",
+   "stop_lat": 32.651928,
+   "stop_lon": 35.117439
+  },
+  {
+   "stop_code": "59610",
+   "stop_name": "כיכר הגיבורים",
+   "stop_lat": 32.658673,
+   "stop_lon": 35.108134
+  },
+  {
+   "stop_code": "59611",
+   "stop_name": "הציפורנים / הנוריות",
+   "stop_lat": 32.658121,
+   "stop_lon": 35.109191
+  },
+  {
+   "stop_code": "59612",
+   "stop_name": "כיכר הגיבורים/הציפורנים",
+   "stop_lat": 32.658467,
+   "stop_lon": 35.108808
+  },
+  {
+   "stop_code": "59614",
+   "stop_name": "'דרך העמק א",
+   "stop_lat": 32.661741,
+   "stop_lon": 35.112965
+  },
+  {
+   "stop_code": "59615",
+   "stop_name": "דרך העמק/משעול התל",
+   "stop_lat": 32.663102,
+   "stop_lon": 35.111914
+  },
+  {
+   "stop_code": "59616",
+   "stop_name": "דרך העמק/משעול התל",
+   "stop_lat": 32.664134,
+   "stop_lon": 35.111453
+  },
+  {
+   "stop_code": "59677",
+   "stop_name": "בית ספר אורט/רבין",
+   "stop_lat": 32.653658,
+   "stop_lon": 35.105439
+  },
+  {
+   "stop_code": "59678",
+   "stop_name": "אגרא/מעלה הגבעה",
+   "stop_lat": 32.652228,
+   "stop_lon": 35.115081
+  },
+  {
+   "stop_code": "59679",
+   "stop_name": "מרכז מידע/האלונים",
+   "stop_lat": 32.653532,
+   "stop_lon": 35.10356
+  },
+  {
+   "stop_code": "59680",
+   "stop_name": "האלונים/הסחלבים",
+   "stop_lat": 32.650827,
+   "stop_lon": 35.100165
+  },
+  {
+   "stop_code": "59682",
+   "stop_name": "מרכז הטניס/האלונים",
+   "stop_lat": 32.647137,
+   "stop_lon": 35.092888
+  },
+  {
+   "stop_code": "59684",
+   "stop_name": "'עין העמק ג",
+   "stop_lat": 32.626242,
+   "stop_lon": 35.086698
+  },
+  {
+   "stop_code": "59687",
+   "stop_name": "מקלט ציבורי עין העמק",
+   "stop_lat": 32.625743,
+   "stop_lon": 35.087766
+  },
+  {
+   "stop_code": "59691",
+   "stop_name": "כיכר מכבי האש",
+   "stop_lat": 32.667715,
+   "stop_lon": 35.106615
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59696",
+   "stop_name": "מסוף קניון ג'י/רציפים",
+   "stop_lat": 32.659523,
+   "stop_lon": 35.105724
+  },
+  {
+   "stop_code": "59698",
+   "stop_name": "הדודאים/ההרדופים",
+   "stop_lat": 32.650902,
+   "stop_lon": 35.098878
+  }
+ ]
+}
