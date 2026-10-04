@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>זמני אוטובוס — יקנעם עילית</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="bus-emoji">🚌</span>
+    <div>
+      <h1 data-i18n="title">זמני אוטובוס</h1>
+      <p data-i18n="subtitle">יקנעם עילית · זמן אמת</p>
+    </div>
+  </div>
+  <button id="langToggle" class="pill-btn" title="Switch language">EN</button>
+</header>
+
+<main>
+  <aside id="sidebar">
+    <section id="stopDetail" class="card" hidden>
+      <div class="stop-head">
+        <div>
+          <h2 id="detailName"></h2>
+          <span id="detailCode" class="stop-code"></span>
+        </div>
+        <button id="favToggle" class="star-btn" title="">☆</button>
+      </div>
+      <h3 data-i18n="upcoming">אוטובוסים קרובים</h3>
+      <div id="detailArrivals" class="arrivals"></div>
+      <div class="updated"><span data-i18n="updated">עודכן</span>: <span id="detailUpdated">—</span></div>
+    </section>
+
+    <nav class="tabs">
+      <button id="tabFav" class="tab active">⭐ <span data-i18n="favorites">מועדפים</span></button>
+      <button id="tabSearch" class="tab">🔍 <span data-i18n="search">חיפוש</span></button>
+    </nav>
+
+    <section id="panelFav">
+      <div id="favList"></div>
+    </section>
+
+    <section id="panelSearch" hidden>
+      <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="חיפוש תחנה לפי שם או מספר…">
+      <div id="searchResults"></div>
+    </section>
+  </aside>
+
+  <div id="map"></div>
+</main>
+
+<footer><span data-i18n="credit">נתוני זמן אמת: משרד התחבורה דרך curlbus.app</span></footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
