@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>זמני אוטובוס — יקנעם עילית</title>
+<title>זמני אוטובוס — ישראל</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -15,7 +17,7 @@
     <span class="bus-emoji">🚌</span>
     <div>
       <h1 data-i18n="title">זמני אוטובוס</h1>
-      <p data-i18n="subtitle">יקנעם עילית · זמן אמת</p>
+      <p data-i18n="subtitle">ישראל · זמן אמת</p>
     </div>
   </div>
   <button id="langToggle" class="pill-btn" title="Switch language">EN</button>
@@ -38,6 +40,7 @@
 
     <nav class="tabs">
       <button id="tabFav" class="tab active">⭐ <span data-i18n="favorites">מועדפים</span></button>
+      <button id="tabNearby" class="tab">📍 <span data-i18n="nearby">קרוב אליי</span></button>
       <button id="tabSearch" class="tab">🔍 <span data-i18n="search">חיפוש</span></button>
     </nav>
 
@@ -45,8 +48,14 @@
       <div id="favList"></div>
     </section>
 
+    <section id="panelNearby" hidden>
+      <button id="locateBtn" class="locate-btn" data-i18n="locate">📍 מצא תחנות לידי</button>
+      <div id="nearbyStatus"></div>
+      <div id="nearbyList"></div>
+    </section>
+
     <section id="panelSearch" hidden>
-      <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="חיפוש תחנה לפי שם או מספר…">
+      <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="חיפוש תחנה לפי שם, עיר או מספר…">
       <div id="searchResults"></div>
     </section>
   </aside>
@@ -57,6 +66,7 @@
 <footer><span data-i18n="credit">נתוני זמן אמת: משרד התחבורה דרך curlbus.app</span></footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
