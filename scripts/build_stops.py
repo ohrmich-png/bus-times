@@ -2,9 +2,10 @@
 """
 Build data/stops.json from the Israel Ministry of Transport GTFS static feed.
 
-Filters stops to the Yokneam Illit area bounding box and keeps only the
+Includes ALL Israeli bus stops (no bounding-box filter) and keeps only the
 fields the site needs: stop_code (the number on the physical sign, used by
-the curlbus.app live API), stop_name, stop_lat, stop_lon.
+the curlbus.app live API), stop_name, city (parsed from stop_desc),
+stop_lat, stop_lon. Output is minified JSON.
 
 GTFS text files are UTF-8 *with BOM* — they must be read with utf-8-sig
 or Hebrew names come out as mojibake.
@@ -16,6 +17,7 @@ because gtfs.mot.gov.il is not reachable from every network.
 
 import csv
 import json
+import re
 import sys
 import tempfile
 import urllib.request
@@ -30,15 +32,13 @@ GTFS_URLS = [
     "https://gtfs.mot.gov.il/gtfsfiles/israel-public-transportation.zip",
 ]
 
-# Yokneam Illit area bounding box
-LAT_MIN, LAT_MAX = 32.58, 32.67
-LON_MIN, LON_MAX = 35.07, 35.16
+CITY_RE = re.compile(r"עיר:\s*(.*?)\s*רציף:")
 
 
 def download(url: str) -> Path:
     tmp = Path(tempfile.mkdtemp()) / "gtfs.zip"
     req = urllib.request.Request(url, headers={"User-Agent": "bus-times/1.0"})
-    with urllib.request.urlopen(req, timeout=120) as r, open(tmp, "wb") as f:
+    with urllib.request.urlopen(req, timeout=180) as r, open(tmp, "wb") as f:
         while chunk := r.read(1 << 20):
             f.write(chunk)
     return tmp
@@ -59,6 +59,7 @@ def main() -> int:
         return 0
 
     stops = []
+    seen_codes = set()
     with zipfile.ZipFile(zip_path) as zf:
         with zf.open("stops.txt") as f:
             # utf-8-sig strips the BOM present in MOT GTFS files
@@ -68,26 +69,30 @@ def main() -> int:
                     lat, lon = float(row["stop_lat"]), float(row["stop_lon"])
                 except (ValueError, KeyError):
                     continue
-                if LAT_MIN <= lat <= LAT_MAX and LON_MIN <= lon <= LON_MAX:
-                    code = row.get("stop_code", "").strip()
-                    if not code:
-                        continue
-                    stops.append({
-                        "stop_code": code,
-                        "stop_name": row.get("stop_name", "").strip(),
-                        "stop_lat": round(lat, 6),
-                        "stop_lon": round(lon, 6),
-                    })
+                if row.get("location_type", "0") != "0":
+                    continue
+                code = (row.get("stop_code") or "").strip()
+                if not code or code in seen_codes:
+                    continue
+                seen_codes.add(code)
+                m = CITY_RE.search(row.get("stop_desc") or "")
+                stops.append({
+                    "stop_code": code,
+                    "stop_name": (row.get("stop_name") or "").strip(),
+                    "city": m.group(1).strip() if m else "",
+                    "stop_lat": round(lat, 6),
+                    "stop_lon": round(lon, 6),
+                })
 
     stops.sort(key=lambda s: s["stop_code"])
     OUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "generated": date.today().isoformat(),
         "count": len(stops),
-        "bbox": {"lat": [LAT_MIN, LAT_MAX], "lon": [LON_MIN, LON_MAX]},
+        "scope": "israel",
         "stops": stops,
     }
-    OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    OUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"Wrote {OUT} with {len(stops)} stops")
     return 0
 
