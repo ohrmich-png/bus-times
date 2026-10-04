@@ -57,16 +57,21 @@ const $ = (id) => document.getElementById(id);
 async function fetchArrivals(code) {
   const url = 'https://curlbus.app/' + encodeURIComponent(code);
   const opts = { headers: { Accept: 'application/json' } };
-  try {
-    const r = await fetch(url, opts);
-    if (!r.ok) throw new Error('direct ' + r.status);
-    return await r.json();
-  } catch (e) {
-    // curlbus.app sends no CORS headers — fall back to a public CORS proxy
-    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url), opts);
-    if (!r.ok) throw new Error('proxy ' + r.status);
-    return await r.json();
+  const attempts = [
+    url, // direct — works once curlbus.app sends CORS headers
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
+    'https://api.cors.lol/?url=' + encodeURIComponent(url),
+  ];
+  let lastErr = null;
+  for (const a of attempts) {
+    try {
+      const r = await fetch(a, opts);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } catch (e) { lastErr = e; }
   }
+  throw lastErr || new Error('all fetch attempts failed');
 }
 
 function parseVisits(data, code) {
