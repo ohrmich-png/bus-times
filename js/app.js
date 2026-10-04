@@ -1,15 +1,15 @@
 'use strict';
 /*
- * Bus Times — personal real-time Israeli bus arrivals (Yokneam Illit).
+ * Bus Times — personal real-time Israeli bus arrivals (all of Israel).
  * Live data: curlbus.app JSON API (Ministry of Transport SIRI feed),
  * with a CORS-proxy fallback since curlbus.app sends no CORS headers.
  */
 
 const I18N = {
   he: {
-    title: 'זמני אוטובוס', subtitle: 'יקנעם עילית · זמן אמת',
-    favorites: 'מועדפים', search: 'חיפוש',
-    searchPh: 'חיפוש תחנה לפי שם או מספר…',
+    title: 'זמני אוטובוס', subtitle: 'ישראל · זמן אמת',
+    favorites: 'מועדפים', search: 'חיפוש', nearby: 'קרוב אליי',
+    searchPh: 'חיפוש תחנה לפי שם, עיר או מספר…',
     noFavs: 'עוד לא שמרת תחנות ⭐\nלחץ על תחנה במפה כדי להוסיף אותה למועדפים.',
     upcoming: 'אוטובוסים קרובים',
     noBuses: 'אין אוטובוסים קרובים כרגע',
@@ -20,11 +20,19 @@ const I18N = {
     credit: 'נתוני זמן אמת: משרד התחבורה דרך curlbus.app',
     noResults: 'לא נמצאו תחנות',
     viewTimes: 'הצג זמנים',
+    locate: '📍 מצא תחנות לידי',
+    locating: 'מאתר את המיקום שלך…',
+    nearYou: 'תחנות קרובות אליך',
+    youAreHere: 'אתה כאן',
+    geoDenied: 'לא התקבלה גישת מיקום. אפשר גישה למיקום בדפדפן ונסה שוב.',
+    geoError: 'לא ניתן לאתר את המיקום כרגע. נסה שוב.',
+    meters: 'מ׳',
+    km: 'ק״מ',
   },
   en: {
-    title: 'Bus Times', subtitle: 'Yokneam Illit · live',
-    favorites: 'Favorites', search: 'Search',
-    searchPh: 'Search stops by name or code…',
+    title: 'Bus Times', subtitle: 'Israel · live',
+    favorites: 'Favorites', search: 'Search', nearby: 'Nearby',
+    searchPh: 'Search stops by name, city or code…',
     noFavs: 'No favorites yet ⭐\nClick a stop on the map to add it to favorites.',
     upcoming: 'Upcoming buses',
     noBuses: 'No upcoming buses right now',
@@ -35,6 +43,14 @@ const I18N = {
     credit: 'Live data: Ministry of Transport via curlbus.app',
     noResults: 'No stops found',
     viewTimes: 'Show times',
+    locate: '📍 Find stops near me',
+    locating: 'Locating you…',
+    nearYou: 'Stations near you',
+    youAreHere: 'You are here',
+    geoDenied: 'Location permission denied. Allow location access in your browser and try again.',
+    geoError: 'Could not determine your location right now. Try again.',
+    meters: 'm',
+    km: 'km',
   },
 };
 
@@ -46,8 +62,11 @@ let stopsByCode = {};
 let lang = localStorage.getItem('bt_lang') || 'he';
 let favs = new Set(JSON.parse(localStorage.getItem('bt_favs') || '[]'));
 let map = null;
+let clusterGroup = null;
 let markers = {};
 let selectedCode = null;
+let userPos = null;
+let userMarker = null;
 
 const t = (k) => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
 const $ = (id) => document.getElementById(id);
@@ -113,11 +132,16 @@ async function selectStop(code) {
   if (!s) return;
   $('stopDetail').hidden = false;
   $('detailName').textContent = s.stop_name;
-  $('detailCode').textContent = '#' + s.stop_code;
+  $('detailCode').textContent = '#' + s.stop_code + (s.city ? ' · ' + s.city : '');
   updateFavButton();
   await refreshDetail();
   const m = markers[selectedCode];
-  if (m) { map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 15), { duration: 0.6 }); m.openTooltip(); }
+  if (m && clusterGroup && clusterGroup.zoomToShowLayer) {
+    clusterGroup.zoomToShowLayer(m, () => m.openTooltip());
+  } else if (m) {
+    map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 15), { duration: 0.6 });
+    m.openTooltip();
+  }
 }
 
 async function refreshDetail() {
@@ -166,7 +190,7 @@ async function renderFavs() {
     const s = stopsByCode[code];
     return `<div class="card fav-card" style="margin-bottom:.6rem">
       <div class="stop-head">
-        <div><h2>${escapeHtml(s.stop_name)}</h2><span class="stop-code">#${code}</span></div>
+        <div><h2>${escapeHtml(s.stop_name)}</h2><span class="stop-code">#${code}${s.city ? ' · ' + escapeHtml(s.city) : ''}</span></div>
         <button class="star-btn active" data-fav="${code}" title="${t('removeFav')}">★</button>
       </div>
       <div class="arrivals" id="fav-${code}"><div class="loading-msg">${t('loading')}</div></div>
@@ -202,14 +226,79 @@ function doSearch(q) {
   const box = $('searchResults');
   if (!q) { box.innerHTML = ''; return; }
   const hits = stops
-    .filter((s) => s.stop_code.includes(q) || s.stop_name.toLowerCase().includes(q))
-    .slice(0, 15);
+    .filter((s) => s.stop_code.includes(q)
+      || s.stop_name.toLowerCase().includes(q)
+      || (s.city && s.city.toLowerCase().includes(q)))
+    .slice(0, 20);
   box.innerHTML = hits.length
     ? hits.map((s) => `<div class="result-item" data-code="${s.stop_code}">
-        <span class="name">${escapeHtml(s.stop_name)}</span><span class="stop-code">#${s.stop_code}</span>
+        <span class="name">${escapeHtml(s.stop_name)}${s.city ? ` <span class="city">${escapeHtml(s.city)}</span>` : ''}</span><span class="stop-code">#${s.stop_code}</span>
       </div>`).join('')
     : `<div class="empty">${t('noResults')}</div>`;
   box.querySelectorAll('.result-item').forEach((el) =>
+    el.addEventListener('click', () => selectStop(el.dataset.code))
+  );
+}
+
+/* ---------- geolocation & nearby ---------- */
+
+function distMeters(aLat, aLon, bLat, bLon) {
+  const R = 6371000;
+  const toRad = (d) => d * Math.PI / 180;
+  const dLat = toRad(bLat - aLat);
+  const dLon = toRad(bLon - aLon);
+  const s = Math.sin(dLat / 2) ** 2
+    + Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+function fmtDist(m) {
+  return m < 1000
+    ? Math.round(m) + ' ' + t('meters')
+    : (m / 1000).toFixed(1) + ' ' + t('km');
+}
+
+function locateMe() {
+  switchTab('nearby');
+  const status = $('nearbyStatus');
+  if (!('geolocation' in navigator)) {
+    status.innerHTML = `<div class="error">${t('geoError')}</div>`;
+    return;
+  }
+  status.innerHTML = `<div class="loading-msg">${t('locating')}</div>`;
+  $('nearbyList').innerHTML = '';
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      userPos = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      if (userMarker) map.removeLayer(userMarker);
+      userMarker = L.circleMarker([userPos.lat, userPos.lon], {
+        color: '#2563eb', fillColor: '#3b82f6', fillOpacity: 0.9, weight: 3, radius: 9,
+      }).addTo(map).bindTooltip(t('youAreHere'));
+      map.flyTo([userPos.lat, userPos.lon], 15, { duration: 0.8 });
+      renderNearby();
+    },
+    (err) => {
+      status.innerHTML = `<div class="error">${err.code === err.PERMISSION_DENIED ? t('geoDenied') : t('geoError')}</div>`;
+    },
+    { enableHighAccuracy: true, timeout: 12000 }
+  );
+}
+
+function renderNearby() {
+  const box = $('nearbyList');
+  const status = $('nearbyStatus');
+  if (!userPos) { status.innerHTML = ''; box.innerHTML = ''; return; }
+  const nearest = stops
+    .map((s) => ({ s, d: distMeters(userPos.lat, userPos.lon, s.stop_lat, s.stop_lon) }))
+    .sort((a, b) => a.d - b.d)
+    .slice(0, 12);
+  status.innerHTML = `<div class="updated" style="text-align:start">${t('nearYou')}</div>`;
+  box.innerHTML = nearest.map(({ s, d }) => `
+    <div class="result-item nearby-item" data-code="${s.stop_code}">
+      <span class="name">${escapeHtml(s.stop_name)}${s.city ? ` <span class="city">${escapeHtml(s.city)}</span>` : ''}<br><span class="stop-code">#${s.stop_code}</span></span>
+      <span class="dist">${fmtDist(d)}</span>
+    </div>`).join('');
+  box.querySelectorAll('.nearby-item').forEach((el) =>
     el.addEventListener('click', () => selectStop(el.dataset.code))
   );
 }
@@ -225,6 +314,7 @@ function paintMarkers() {
       radius: isFav ? 9 : 6,
     });
   });
+  if (clusterGroup && clusterGroup.refreshClusters) clusterGroup.refreshClusters();
 }
 
 function initMap() {
@@ -234,15 +324,34 @@ function initMap() {
     maxZoom: 19,
   }).addTo(map);
 
+  clusterGroup = L.markerClusterGroup({
+    maxClusterRadius: 60,
+    disableClusteringAtZoom: 16,
+  });
+  map.addLayer(clusterGroup);
+
   stops.forEach((s) => {
     const m = L.circleMarker([s.stop_lat, s.stop_lon], {
       color: '#0d9488', fillColor: '#14b8a6', fillOpacity: 0.85, weight: 2, radius: 6,
-    }).addTo(map);
+    });
     m.bindTooltip(`${escapeHtml(s.stop_name)} (#${s.stop_code})`, { direction: 'top' });
     m.on('click', () => selectStop(s.stop_code));
     markers[s.stop_code] = m;
+    clusterGroup.addLayer(m);
   });
   paintMarkers();
+
+  const locateCtl = L.control({ position: 'bottomright' });
+  locateCtl.onAdd = () => {
+    const btn = L.DomUtil.create('button', 'map-locate-btn');
+    btn.id = 'mapLocateBtn';
+    btn.innerHTML = '📍';
+    btn.title = t('locate');
+    btn.setAttribute('aria-label', t('locate'));
+    L.DomEvent.on(btn, 'click', (e) => { L.DomEvent.stopPropagation(e); locateMe(); });
+    return btn;
+  };
+  locateCtl.addTo(map);
 }
 
 /* ---------- language ---------- */
@@ -253,9 +362,12 @@ function applyLang() {
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
   $('langToggle').textContent = lang === 'he' ? 'EN' : 'עב';
-  document.title = t('title') + ' — ' + (lang === 'he' ? 'יקנעם עילית' : 'Yokneam Illit');
+  document.title = t('title') + ' — ' + (lang === 'he' ? 'ישראל' : 'Israel');
+  const mapBtn = $('mapLocateBtn');
+  if (mapBtn) { mapBtn.title = t('locate'); mapBtn.setAttribute('aria-label', t('locate')); }
   if (selectedCode) refreshDetail();
   renderFavs();
+  if (userPos) renderNearby();
   doSearch($('searchInput').value);
 }
 
@@ -273,7 +385,9 @@ async function boot() {
 
   $('favToggle').addEventListener('click', () => selectedCode && toggleFav(selectedCode));
   $('tabFav').addEventListener('click', () => switchTab('fav'));
+  $('tabNearby').addEventListener('click', () => switchTab('nearby'));
   $('tabSearch').addEventListener('click', () => switchTab('search'));
+  $('locateBtn').addEventListener('click', locateMe);
   $('searchInput').addEventListener('input', (e) => doSearch(e.target.value));
   $('langToggle').addEventListener('click', () => {
     lang = lang === 'he' ? 'en' : 'he';
@@ -290,8 +404,10 @@ async function boot() {
 
 function switchTab(which) {
   $('tabFav').classList.toggle('active', which === 'fav');
+  $('tabNearby').classList.toggle('active', which === 'nearby');
   $('tabSearch').classList.toggle('active', which === 'search');
   $('panelFav').hidden = which !== 'fav';
+  $('panelNearby').hidden = which !== 'nearby';
   $('panelSearch').hidden = which !== 'search';
   if (which === 'search') $('searchInput').focus();
 }
