@@ -77,6 +77,7 @@ async function fetchArrivals(code) {
   const url = 'https://curlbus.app/' + encodeURIComponent(code);
   const opts = { headers: { Accept: 'application/json' } };
   const attempts = [
+    'https://bus-times-cors.ohrmich.workers.dev/?url=' + encodeURIComponent(url), // Or's own Cloudflare worker — reliable
     url, // direct — works once curlbus.app sends CORS headers
     'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
