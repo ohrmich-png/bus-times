@@ -1,0 +1,34 @@
+name: Refresh stops data
+
+# Weekly refresh of data/stops.json from the Israel MOT GTFS static feed.
+# If the feed can't be reached from the runner, the script exits 0 and the
+# existing stops.json is kept (committed only when the file actually changed).
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'  # Mondays 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Rebuild stops.json
+        run: python scripts/build_stops.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "bus-times-bot"
+          git config user.email "bus-times-bot@users.noreply.github.com"
+          git add data/stops.json
+          git diff --staged --quiet || git commit -m "chore: refresh stops data"
+          git push
