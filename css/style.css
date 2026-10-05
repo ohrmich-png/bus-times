@@ -246,3 +246,35 @@ footer {
 }
 #nearbyStatus { margin-bottom: 0.4rem; }
 #nearbyStatus .updated { margin-top: 0; }
+
+/* ---- bus-line search & route view ---- */
+.seg { display: flex; gap: 0.4rem; margin-bottom: 0.6rem; }
+.seg-btn {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--ink);
+}
+.seg-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.line-badge.big { font-size: 1.15rem; min-width: 3.2rem; padding: 0.35rem 0.5rem; }
+.line-result .name { flex: 1; }
+.line-result .name b { font-weight: 700; }
+.bus-marker {
+  font-size: 1.6rem;
+  text-align: center;
+  line-height: 30px;
+  background: none;
+  border: none;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.4));
+}
+.flag-marker { font-size: 1.2rem; text-align: center; line-height: 24px; background: none; border: none; }
+#routeTitle { display: flex; align-items: center; gap: 0.5rem; }
+.bus-ico { font-size: 1.3rem; }
+#busList .next { font-size: 0.76rem; color: var(--muted); font-weight: 400; }
+#routeClose { color: var(--muted); font-size: 1.3rem; }
+#routeClose:hover { color: var(--danger); transform: none; }
