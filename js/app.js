@@ -28,6 +28,13 @@ const I18N = {
     geoError: 'לא ניתן לאתר את המיקום כרגע. נסה שוב.',
     meters: 'מ׳',
     km: 'ק״מ',
+    stopTab: 'תחנה', lineTab: 'קו',
+    liveBuses: 'אוטובוסים בקו עכשיו',
+    searchLinePh: 'חיפוש קו לפי מספר…',
+    noLines: 'לא נמצאו קווים',
+    closeRoute: 'סגור מסלול',
+    nextStop: 'תחנה הבאה',
+    noLiveBuses: 'אין אוטובוסים פעילים כרגע',
   },
   en: {
     title: 'Bus Times', subtitle: 'Israel · live',
@@ -51,6 +58,13 @@ const I18N = {
     geoError: 'Could not determine your location right now. Try again.',
     meters: 'm',
     km: 'km',
+    stopTab: 'Stop', lineTab: 'Line',
+    liveBuses: 'Buses on this line now',
+    searchLinePh: 'Search line by number…',
+    noLines: 'No lines found',
+    closeRoute: 'Close route',
+    nextStop: 'Next stop',
+    noLiveBuses: 'No active buses right now',
   },
 };
 
@@ -67,6 +81,13 @@ let markers = {};
 let selectedCode = null;
 let userPos = null;
 let userMarker = null;
+let searchMode = 'stop'; // 'stop' | 'line'
+let routeIndex = null;
+let routeStopsCache = null;
+let selectedRoute = null;
+let routeLayer = null;
+let busMarkers = {};
+let routeBusTimer = null;
 
 const t = (k) => (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
 const $ = (id) => document.getElementById(id);
