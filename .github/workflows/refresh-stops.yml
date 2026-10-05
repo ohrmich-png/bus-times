@@ -1,8 +1,10 @@
 name: Refresh stops data
 
-# Weekly refresh of data/stops.json from the Israel MOT GTFS static feed.
-# If the feed can't be reached from the runner, the script exits 0 and the
-# existing stops.json is kept (committed only when the file actually changed).
+# Weekly refresh of transit data from the Israel MOT GTFS static feed:
+# data/stops.json (all stops), data/routes.json + data/route_stops.json
+# (bus-number search). If the feed can't be reached from the runner, the
+# scripts exit 0 and the existing files are kept (committed only when
+# something actually changed).
 
 on:
   schedule:
@@ -25,10 +27,13 @@ jobs:
       - name: Rebuild stops.json
         run: python scripts/build_stops.py
 
+      - name: Rebuild routes data
+        run: python scripts/build_routes.py
+
       - name: Commit if changed
         run: |
           git config user.name "bus-times-bot"
           git config user.email "bus-times-bot@users.noreply.github.com"
-          git add data/stops.json
-          git diff --staged --quiet || git commit -m "chore: refresh stops data"
+          git add data/stops.json data/routes.json data/route_stops.json
+          git diff --staged --quiet || git commit -m "chore: refresh transit data"
           git push
