@@ -241,6 +241,182 @@ function doSearch(q) {
   );
 }
 
+
+/* ---------- bus-line search & route view ---------- */
+
+async function ensureRouteIndex() {
+  if (!routeIndex) {
+    const res = await fetch('data/routes.json');
+    routeIndex = ((await res.json()).routes) || [];
+  }
+  return routeIndex;
+}
+
+async function ensureRouteStops() {
+  if (!routeStopsCache) {
+    const res = await fetch('data/route_stops.json');
+    routeStopsCache = ((await res.json()).routes) || {};
+  }
+  return routeStopsCache;
+}
+
+function dirArrow() { return lang === 'he' ? '←' : '→'; }
+
+function setSearchMode(m) {
+  searchMode = m;
+  $('modeStop').classList.toggle('active', m === 'stop');
+  $('modeLine').classList.toggle('active', m === 'line');
+  $('searchInput').placeholder = t(m === 'line' ? 'searchLinePh' : 'searchPh');
+  $('searchInput').value = '';
+  $('searchResults').innerHTML = '';
+  $('searchInput').focus();
+}
+
+function lineResultHtml(r) {
+  return `<div class="result-item line-result" data-rid="${r.id}">`
+    + `<span class="line-badge">${escapeHtml(r.n)}</span>`
+    + `<span class="name">${escapeHtml(r.from)} ${dirArrow()} <b>${escapeHtml(r.to)}</b>`
+    + (r.a ? ` <span class="city">${escapeHtml(r.a)}</span>` : '') + `</span></div>`;
+}
+
+async function doLineSearch(q) {
+  q = q.trim();
+  const box = $('searchResults');
+  if (!q) { box.innerHTML = ''; return; }
+  box.innerHTML = `<div class="loading-msg">${t('loading')}</div>`;
+  try {
+    const idx = await ensureRouteIndex();
+    const hits = idx.filter((r) => r.n.startsWith(q)).slice(0, 25);
+    box.innerHTML = hits.length
+      ? hits.map(lineResultHtml).join('')
+      : `<div class="empty">${t('noLines')}</div>`;
+    box.querySelectorAll('.line-result').forEach((el) =>
+      el.addEventListener('click', () => selectRoute(el.dataset.rid))
+    );
+  } catch (e) {
+    box.innerHTML = `<div class="error">${t('errLoad')}</div>`;
+  }
+}
+
+function clearRoute() {
+  if (routeBusTimer) { clearInterval(routeBusTimer); routeBusTimer = null; }
+  if (routeLayer && map) { map.removeLayer(routeLayer); }
+  routeLayer = null;
+  busMarkers = {};
+  selectedRoute = null;
+  $('routeDetail').hidden = true;
+}
+
+async function selectRoute(rid) {
+  const idx = await ensureRouteIndex();
+  const r = idx.find((x) => String(x.id) === String(rid));
+  if (!r) return;
+  const stopsMap = await ensureRouteStops();
+  const codes = stopsMap[r.id] || [];
+  const pts = codes.map((c) => stopsByCode[String(c)]).filter(Boolean);
+  if (pts.length < 2) return;
+  clearRoute();
+  selectedRoute = r;
+
+  routeLayer = L.layerGroup().addTo(map);
+  const latlngs = pts.map((s) => [s.stop_lat, s.stop_lon]);
+  L.polyline(latlngs, { color: '#7c3aed', weight: 4, opacity: 0.7 }).addTo(routeLayer);
+  pts.forEach((s) => {
+    const m = L.circleMarker([s.stop_lat, s.stop_lon], {
+      color: '#7c3aed', fillColor: '#a78bfa', fillOpacity: 0.9, weight: 2, radius: 5,
+    });
+    m.bindTooltip(`${escapeHtml(s.stop_name)} (#${s.stop_code})`, { direction: 'top' });
+    m.on('click', () => selectStop(s.stop_code));
+    routeLayer.addLayer(m);
+  });
+  const flag = (s, emoji) => {
+    routeLayer.addLayer(L.marker([s.stop_lat, s.stop_lon], {
+      icon: L.divIcon({ className: 'flag-marker', html: emoji, iconSize: [24, 24], iconAnchor: [12, 12] }),
+    }));
+  };
+  flag(pts[0], '🚩');
+  flag(pts[pts.length - 1], '🏁');
+  map.flyToBounds(L.latLngBounds(latlngs).pad(0.12), { duration: 0.8 });
+
+  $('routeDetail').hidden = false;
+  $('routeTitle').innerHTML = `<span class="line-badge big">${escapeHtml(r.n)}</span> ${escapeHtml(r.to)}`;
+  $('routeSub').textContent = r.from + (r.a ? ' · ' + r.a : '');
+  $('routeClose').title = t('closeRoute');
+  await refreshRouteBuses();
+  routeBusTimer = setInterval(refreshRouteBuses, REFRESH_MS);
+}
+
+async function refreshRouteBuses() {
+  const r = selectedRoute;
+  if (!r || !routeLayer) return;
+  const box = $('busList');
+  box.innerHTML = `<div class="loading-msg">${t('loading')}</div>`;
+  try {
+    const stopsMap = await ensureRouteStops();
+    const codes = stopsMap[r.id] || [];
+    const N = 8;
+    const sample = codes.length <= N
+      ? codes
+      : Array.from({ length: N }, (_, i) => codes[Math.round((i * (codes.length - 1)) / (N - 1))]);
+    const results = await Promise.all(sample.map((c) => fetchArrivals(c).catch(() => null)));
+    const buses = new Map();
+    results.forEach((data, i) => {
+      const code = String(sample[i]);
+      const visits = (data && data.visits && data.visits[code]) || [];
+      visits.forEach((v) => {
+        if (String(v.line_name) !== String(r.n)) return;
+        const loc = v.location;
+        if (!loc || loc.lat == null || loc.lon == null) return;
+        let etaMs = NaN;
+        try { etaMs = new Date(String(v.eta).replace(' ', 'T')).getTime(); } catch (e) { /* ignore */ }
+        const mins = Math.round((etaMs - Date.now()) / 60000);
+        if (!isFinite(mins) || mins < 0 || mins > 180) return;
+        const ref = String(v.vehicle_ref || '') || (String(v.trip_id) + '@' + code);
+        const nm = (((v.static_info || {}).route || {}).destination || {}).name || {};
+        const dest = nm[lang.toUpperCase()] || nm.HE || nm.EN || '';
+        const s = stopsByCode[code];
+        const prev = buses.get(ref);
+        if (!prev || mins < prev.mins) {
+          buses.set(ref, {
+            ref, lat: parseFloat(loc.lat), lon: parseFloat(loc.lon), mins,
+            nextStop: s ? s.stop_name : '#' + code,
+            dest, destId: String(v.destination_id || ''),
+          });
+        }
+      });
+    });
+    let list = [...buses.values()];
+    const directed = list.filter((b) => b.destId && b.destId === String(r.last));
+    if (directed.length) list = directed;
+    list.sort((a, b) => a.mins - b.mins);
+
+    Object.values(busMarkers).forEach((m) => routeLayer.removeLayer(m));
+    busMarkers = {};
+    list.forEach((b) => {
+      const m = L.marker([b.lat, b.lon], {
+        icon: L.divIcon({ className: 'bus-marker', html: '🚌', iconSize: [30, 30], iconAnchor: [15, 15] }),
+      });
+      const etaTxt = b.mins <= 1 ? t('now') : b.mins + ' ' + t('min');
+      m.bindPopup(`<b>${escapeHtml(r.n)}</b> ${dirArrow()} ${escapeHtml(b.dest || r.to)}<br>${t('nextStop')}: ${escapeHtml(b.nextStop)} (${etaTxt})`);
+      routeLayer.addLayer(m);
+      busMarkers[b.ref] = m;
+    });
+
+    $('busCount').textContent = list.length ? `(${list.length})` : '';
+    box.innerHTML = list.length
+      ? list.map((b) => {
+          const etaTxt = b.mins <= 1 ? t('now') : b.mins + ' ' + t('min');
+          return `<div class="arrival"><span class="bus-ico">🚌</span>`
+            + `<span class="dest">${escapeHtml(b.dest || r.to)}<br><span class="next">${t('nextStop')}: ${escapeHtml(b.nextStop)}</span></span>`
+            + `<span class="eta${b.mins <= 3 ? ' soon' : ''}">${etaTxt}</span></div>`;
+        }).join('')
+      : `<div class="empty">${t('noLiveBuses')}</div>`;
+  } catch (e) {
+    box.innerHTML = `<div class="error">${t('errLoad')}</div>`;
+  }
+  $('routeUpdated').textContent = new Date().toLocaleTimeString(lang === 'he' ? 'he-IL' : 'en-US');
+}
+
 /* ---------- geolocation & nearby ---------- */
 
 function distMeters(aLat, aLon, bLat, bLon) {
@@ -367,6 +543,14 @@ function applyLang() {
   const mapBtn = $('mapLocateBtn');
   if (mapBtn) { mapBtn.title = t('locate'); mapBtn.setAttribute('aria-label', t('locate')); }
   if (selectedCode) refreshDetail();
+  $('searchInput').placeholder = t(searchMode === 'line' ? 'searchLinePh' : 'searchPh');
+  if (searchMode === 'line' && $('searchInput').value) doLineSearch($('searchInput').value);
+  if (selectedRoute) {
+    $('routeTitle').innerHTML = `<span class="line-badge big">${escapeHtml(selectedRoute.n)}</span> ${escapeHtml(selectedRoute.to)}`;
+    $('routeSub').textContent = selectedRoute.from + (selectedRoute.a ? ' · ' + selectedRoute.a : '');
+    $('routeClose').title = t('closeRoute');
+    refreshRouteBuses();
+  }
   renderFavs();
   if (userPos) renderNearby();
   doSearch($('searchInput').value);
@@ -389,7 +573,12 @@ async function boot() {
   $('tabNearby').addEventListener('click', () => switchTab('nearby'));
   $('tabSearch').addEventListener('click', () => switchTab('search'));
   $('locateBtn').addEventListener('click', locateMe);
-  $('searchInput').addEventListener('input', (e) => doSearch(e.target.value));
+  $('searchInput').addEventListener('input', (e) => {
+    if (searchMode === 'line') doLineSearch(e.target.value); else doSearch(e.target.value);
+  });
+  $('modeStop').addEventListener('click', () => setSearchMode('stop'));
+  $('modeLine').addEventListener('click', () => setSearchMode('line'));
+  $('routeClose').addEventListener('click', clearRoute);
   $('langToggle').addEventListener('click', () => {
     lang = lang === 'he' ? 'en' : 'he';
     localStorage.setItem('bt_lang', lang);
@@ -400,6 +589,7 @@ async function boot() {
   setInterval(async () => {
     if (selectedCode && !$('stopDetail').hidden) await refreshDetail();
     if (!$('panelFav').hidden) await refreshFavs();
+    if (selectedRoute && !$('routeDetail').hidden) await refreshRouteBuses();
   }, REFRESH_MS);
 }
 
