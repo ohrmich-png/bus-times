@@ -38,6 +38,19 @@
       <div class="updated"><span data-i18n="updated">עודכן</span>: <span id="detailUpdated">—</span></div>
     </section>
 
+    <section id="routeDetail" class="card" hidden>
+      <div class="stop-head">
+        <div>
+          <h2 id="routeTitle"></h2>
+          <span id="routeSub" class="stop-code"></span>
+        </div>
+        <button id="routeClose" class="star-btn" title="">✕</button>
+      </div>
+      <h3><span data-i18n="liveBuses">אוטובוסים בקו עכשיו</span> <span id="busCount"></span></h3>
+      <div id="busList" class="arrivals"></div>
+      <div class="updated"><span data-i18n="updated">עודכן</span>: <span id="routeUpdated">—</span></div>
+    </section>
+
     <nav class="tabs">
       <button id="tabFav" class="tab active">⭐ <span data-i18n="favorites">מועדפים</span></button>
       <button id="tabNearby" class="tab">📍 <span data-i18n="nearby">קרוב אליי</span></button>
@@ -55,6 +68,10 @@
     </section>
 
     <section id="panelSearch" hidden>
+      <div class="seg">
+        <button id="modeStop" class="seg-btn active">🚏 <span data-i18n="stopTab">תחנה</span></button>
+        <button id="modeLine" class="seg-btn">🚌 <span data-i18n="lineTab">קו</span></button>
+      </div>
       <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="חיפוש תחנה לפי שם, עיר או מספר…">
       <div id="searchResults"></div>
     </section>
